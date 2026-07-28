@@ -22,10 +22,14 @@ namespace NoteApp.Controllers
         [HttpPost("Create")]
         public IActionResult CreateNote([FromForm] CreateNoteDto request)
         {
-            var userId = User.FindFirst("UserId")?.Value;
-            //if(userId == null)
-            //    return Unauthorized("Lutfen tekrar giris yapiniz.");
-            
+            var userId = User.FindFirst("userId")?.Value;
+            if(userId == null)
+               return Unauthorized("Lutfen tekrar giris yapiniz.");
+            var user = _context.Users
+                .FirstOrDefault(u=> u.Active 
+                                    && u.Id == Guid.Parse(userId));
+            if(user == null)
+                return Unauthorized();
             //jwt
             if (request.File != null)
             {
@@ -89,14 +93,7 @@ namespace NoteApp.Controllers
                         noteType = NoteType.Text;
                         break;
                 }
-
-                var user = _context.Users
-                    .FirstOrDefault(u=> u.Active 
-                                        && u.Id == Guid.Parse(userId));
-                if(user == null)
-                    return Unauthorized();
                 
-
                 var note = new Note()
                 {
                     
