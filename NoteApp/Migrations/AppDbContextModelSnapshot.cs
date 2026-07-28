@@ -22,6 +22,34 @@ namespace NoteApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("NoteApp.Auth.RefreshToken", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("expiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("isRevoked")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("NoteApp.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
@@ -134,6 +162,15 @@ namespace NoteApp.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("NoteApp.Auth.RefreshToken", b =>
+                {
+                    b.HasOne("NoteApp.Entities.User", null)
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("NoteApp.Entities.Category", b =>
                 {
                     b.HasOne("NoteApp.Entities.User", "User")
@@ -172,6 +209,8 @@ namespace NoteApp.Migrations
                     b.Navigation("Categories");
 
                     b.Navigation("Notes");
+
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

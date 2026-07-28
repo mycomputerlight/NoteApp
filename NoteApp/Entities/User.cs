@@ -1,4 +1,6 @@
-﻿namespace NoteApp.Entities
+﻿using NoteApp.Auth;
+
+namespace NoteApp.Entities
 {
     public class User
     {
@@ -10,6 +12,7 @@
         public string Password { get; set; } = null!;
         public bool Active { get; set; } = true;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 
         public ICollection<Note> Notes { get; set; } = new List<Note>();
 

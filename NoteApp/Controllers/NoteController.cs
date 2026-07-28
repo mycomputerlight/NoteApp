@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NoteApp.Data;
 using NoteApp.Entities;
 using NoteApp.Entities.Dtos;
 
 namespace NoteApp.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class NoteController : ControllerBase
@@ -20,6 +22,10 @@ namespace NoteApp.Controllers
         [HttpPost("Create")]
         public IActionResult CreateNote([FromForm] CreateNoteDto request)
         {
+            var userId = User.FindFirst("UserId")?.Value;
+            if(userId == null)
+                return Unauthorized("Lutfen tekrar giris yapiniz.");
+            
             //jwt
             if (request.File != null)
             {
@@ -83,16 +89,24 @@ namespace NoteApp.Controllers
                         break;
                 }
 
-            
+                var user = _context.Users
+                    .FirstOrDefault(u=> u.Active 
+                                        && u.Id == Guid.Parse(userId));
+                if(user == null)
+                    return Unauthorized();
+                
 
                 var note = new Note()
                 {
+                    
                     Title = request.Title,
                     Content = request.Content,
                     FileName = fileName,
                     FilePath = filePath,
                     NoteType = noteType,
                     CategoryId = request.CategoryId,
+                    UserId = user.Id,
+                    User = user,
 
                 };
                 _context.Notes.Add(note);
