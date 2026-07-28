@@ -6,7 +6,7 @@ using NoteApp.Entities.Dtos;
 
 namespace NoteApp.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class NoteController : ControllerBase
