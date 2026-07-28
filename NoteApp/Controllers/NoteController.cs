@@ -6,7 +6,7 @@ using NoteApp.Entities.Dtos;
 
 namespace NoteApp.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class NoteController : ControllerBase
@@ -23,12 +23,13 @@ namespace NoteApp.Controllers
         public IActionResult CreateNote([FromForm] CreateNoteDto request)
         {
             var userId = User.FindFirst("UserId")?.Value;
-            if(userId == null)
-                return Unauthorized("Lutfen tekrar giris yapiniz.");
+            //if(userId == null)
+            //    return Unauthorized("Lutfen tekrar giris yapiniz.");
             
             //jwt
             if (request.File != null)
             {
+                
                 var uploadFolder = Path.Combine(
                 Directory.GetCurrentDirectory(),
                 "Uploads");
