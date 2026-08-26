@@ -1,0 +1,36 @@
+services:
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: noteapp-api
+
+    ports:
+      - "7148:8080"
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__DockerDbConnection: "Server=sqlserver;Database=NoteAppDb;User Id=sa;Password=mssql2026!;TrustServerCertificate=True;"
+
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+
+    container_name: noteapp-sqlserver
+
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "mssql2026!"
+
+    ports:
+      - "1433:1433"
+
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+
+volumes:
+  sqlserver_data:

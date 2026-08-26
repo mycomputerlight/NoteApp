@@ -8,6 +8,8 @@
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
 
+        public bool Active { get; set; } = true;
+
         public ICollection<Note> Notes { get; set; }
             = new List<Note>();
     }

@@ -1,0 +1,25 @@
+MEDİKAL GÖRÜNTÜ İŞLEME – GÖRÜNTÜ SEGMENTASYONU
+
+Görüntü segmentasyonu, medikal görüntülerde bulunan piksellerin veya voksellerin anlamlı bölgelere ayrılması işlemidir. Segmentasyonun temel amacı görüntü içerisindeki organ, doku, damar veya tümör gibi yapıların arka plandan ayrılmasıdır. Bu işlem, hastalıkların teşhisi, tedavi planlaması, cerrahi planlama ve hastalık takibi gibi birçok alanda kullanılmaktadır.
+
+Medikal görüntü segmentasyonu üç temel şekilde gerçekleştirilebilir: manuel, yarı otomatik ve otomatik segmentasyon.
+
+Manuel segmentasyonda görüntü üzerindeki bölgeler uzman tarafından tek tek belirlenir. Radyolog veya başka bir uzman, görüntü üzerinde ilgili organın veya lezyonun sınırlarını çizerek segmentasyonu gerçekleştirir. Manuel yöntem genellikle güvenilir sonuçlar vermesine rağmen oldukça zaman alıcıdır. Ayrıca işlemin sonucu uzman kişinin deneyimine bağlı olarak değişebilir.
+
+Yarı otomatik segmentasyonda kullanıcı sisteme başlangıç bilgisi sağlar ve algoritma bu bilgiyi kullanarak segmentasyonu tamamlar. Kullanıcı bir başlangıç noktası belirleyebilir veya bir bölgenin sınırını yaklaşık olarak gösterebilir. Daha sonra algoritma ilgili bölgeyi otomatik olarak genişletir. Region Growing, Active Contours ve Graph Cuts yarı otomatik segmentasyon yöntemlerine örnek olarak verilebilir.
+
+Otomatik segmentasyonda ise kullanıcı müdahalesi minimum seviyededir veya hiç yoktur. Bilgisayar algoritmaları görüntüyü analiz ederek ilgili bölgeleri kendisi belirler. Geleneksel görüntü işleme yöntemlerinin yanı sıra makine öğrenmesi ve derin öğrenme yöntemleri de otomatik segmentasyonda kullanılmaktadır.
+
+Geleneksel segmentasyon yöntemlerinden biri eşikleme yöntemidir. Eşikleme işleminde pikseller yoğunluk değerlerine göre farklı sınıflara ayrılır. Belirlenen eşik değerinin üzerindeki veya altındaki pikseller farklı bir bölge olarak kabul edilir. Bu yöntem basit ve hızlı olmasına rağmen görüntüdeki gürültü ve düşük kontrast gibi problemlerden etkilenebilir.
+
+Region Growing yönteminde görüntü içerisinde bir başlangıç noktası yani tohum piksel belirlenir. Algoritma bu noktadan başlayarak benzer yoğunluk özelliklerine sahip komşu pikselleri bölgeye dahil eder. Bölge, belirlenen benzerlik kriterlerini sağlayan pikseller eklenerek büyütülür.
+
+Kenar tabanlı yöntemlerde görüntü içerisindeki yoğunluk değişimleri incelenir. Sobel ve Canny gibi kenar algılama algoritmaları kullanılarak nesnelerin sınırları belirlenmeye çalışılır.
+
+Derin öğrenme tabanlı yöntemler son yıllarda medikal görüntü segmentasyonunda oldukça yaygınlaşmıştır. Özellikle U-Net mimarisi medikal görüntülerin segmentasyonunda en çok kullanılan mimarilerden biridir. U-Net, encoder ve decoder bölümlerinden oluşur. Encoder görüntüden özellikleri çıkarırken decoder bu özellikleri kullanarak segmentasyon haritasını oluşturur. Skip connection adı verilen bağlantılar sayesinde görüntünün düşük seviyeli detaylarının korunması sağlanır.
+
+3D U-Net ve V-Net gibi mimariler üç boyutlu medikal görüntüler üzerinde çalışmak amacıyla geliştirilmiştir. Bu yöntemler özellikle MR ve BT gibi üç boyutlu veri içeren görüntüleme yöntemlerinde kullanılabilir.
+
+Segmentasyon modellerinin başarısını değerlendirmek için çeşitli metrikler kullanılır. Dice katsayısı, tahmin edilen segmentasyon ile gerçek segmentasyon arasındaki örtüşmeyi ölçen önemli bir metriktir. Jaccard Index veya IoU da benzer şekilde tahmin ve gerçek değerler arasındaki örtüşmeyi değerlendirmek için kullanılır. Ayrıca doğruluk, duyarlılık, özgüllük ve kesinlik gibi metriklerden de yararlanılabilir.
+
+Sonuç olarak medikal görüntü segmentasyonu, görüntülerdeki önemli anatomik veya patolojik yapıların belirlenmesini sağlayan önemli bir görüntü işleme işlemidir. Manuel yöntemler uzman kontrolü açısından avantajlı olsa da zaman alıcıdır. Yarı otomatik yöntemler insan müdahalesi ile algoritmaların avantajlarını birleştirir. Otomatik yöntemler ise özellikle derin öğrenme sayesinde hızlı ve yüksek doğruluklu sonuçlar sağlayabilmektedir.

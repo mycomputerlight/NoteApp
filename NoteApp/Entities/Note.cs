@@ -10,6 +10,8 @@
 
         public string? FileName { get; set; }
 
+        public string? RealFileName { get; set; }
+
         public string? FilePath { get; set; }
 
         public NoteType NoteType { get; set; } = NoteType.Text;
