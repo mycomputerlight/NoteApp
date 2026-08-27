@@ -404,6 +404,7 @@ namespace NoteApp.Controllers
 
                 note.FileName = fileName;
                 note.FilePath = filePath;
+                note.RealFileName = request.File.FileName;
 
                 note.NoteType = extension switch
                 {
@@ -420,6 +421,7 @@ namespace NoteApp.Controllers
             }
 
             note.UpdatedAt = DateTime.UtcNow;
+            _context.Update(note);
             _context.SaveChanges();
             return Ok(new
             {
